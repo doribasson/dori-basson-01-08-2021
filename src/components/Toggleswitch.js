@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import Switch from "react-switch";
-import { themeColor } from "../actions/searchAction";
+import { themeColor } from "../redux/actions/searchAction";
 import { useDispatch, useSelector } from "react-redux";
 
 const Toggleswitch = () => {

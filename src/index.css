@@ -37,15 +37,15 @@ a.navbar-brand {
   /* width: 60px; */
 }
 
-.main-nav-active {
+.active {
   /* background-color: rgb(75, 75, 75); */
-  background-color: rgb(200, 186, 186);
-  text-align: center;
-  border-bottom: 6px solid;
-  width: 100px;
-  border-bottom: 6px solid;
-  border-bottom-color: #000;
-  border-top-color: #000;
+  background-color: rgb(200, 186, 186) !important;
+  text-align: center !important;
+  border-bottom: 6px solid !important;
+  width: 100px !important;
+  border-bottom: 6px solid !important;
+  border-bottom-color: #000 !important;
+  border-top-color: #000 !important;
 }
 
 @media (max-width: 584px) {

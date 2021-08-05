@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 // import { useSelector } from "react-redux";
-import { iconsSwitch1 } from "../actions/searchAction";
 import {
   removeAllAction,
   loadFavoritesAction
-} from "../actions/favoriteAction";
+} from "../redux/actions/favoriteAction";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SplitText from "react-pose-text";
 import Toggleswitch from "../components/Toggleswitch";
-import Button from "./Button";
-import { MyLocalStorage } from "../actions/favoriteAction";
+import Cards from "./Cards";
+import Loading from "./Loading";
+import Modal from "./Modal";
 
 const charPoses = {
   exit: { opacity: 0, y: 20 },
@@ -62,109 +62,21 @@ const Favorite = () => {
         </div>
         <br />
         {loading ? (
-          <div className="spiner_loading">
-            <div className="spinner-grow text-primary" role="status">
-              <span className="sr-only">Loading...</span>
-            </div>
-            <div className="spinner-grow text-secondary" role="status">
-              <span className="sr-only">Loading...</span>
-            </div>
-            <div className="spinner-grow text-success" role="status">
-              <span className="sr-only">Loading...</span>
-            </div>
-            <div className="spinner-grow text-danger" role="status">
-              <span className="sr-only">Loading...</span>
-            </div>
-            <div className="spinner-grow text-warning" role="status">
-              <span className="sr-only">Loading...</span>
-            </div>
-          </div>
+          <Loading />
         ) : (
           <div className="container-favorite-card">
-            {local.map((el, i) => {
-              return (
-                <div key={i} className="favorite-card">
-                  <h4 className="card-title">
-                    <u>{el?.cityName}</u>
-                  </h4>
-                  <h5 className="card-text">
-                    {response[i]?.data[0]?.Temperature.Metric.Value} ℃{" "}
-                  </h5>
-                  <h5 className="card-text">
-                    {response[i]?.data[0]?.Temperature.Imperial.Value} F
-                  </h5>
-                  <h6 className="card-text">
-                    {response[i]?.data[0]?.WeatherText}
-                  </h6>
-                  <img
-                    src={iconsSwitch1(response[i]?.data[0]?.WeatherText)}
-                    alt="none"
-                  />
-
-                  <Button
-                    className={"btn btn-dark"}
-                    handleClick={e => {
-                      MyLocalStorage(e, i, el.cityName);
-                      setLocal(
-                        JSON.parse(localStorage.getItem("weatherInfo")) || []
-                      );
-                    }}
-                    icon={
-                      <i
-                        id={checkFavorite.length | []}
-                        className="fas fa-star"
-                        style={{
-                          color:
-                            local[local.length - 1]?.isFavorite === true
-                              ? "#ffe000"
-                              : "white"
-                        }}
-                      ></i>
-                    }
-                  />
-                </div>
-              );
-            })}
+            <Cards
+              local={local}
+              setLocal={setLocal}
+              list={local}
+              response={response}
+              isFavoriteCard={true}
+              checkFavorite={checkFavorite}
+            />
+            <br />
           </div>
         )}
-        <br />
-        <div className="favorite-warnning">
-          <button
-            type="button"
-            className="btn btn-light btn-lg"
-            data-toggle="modal"
-            data-target="#myModal"
-          >
-            <span className="fa fa-trash" style={{ fontSize: "20px" }}></span>{" "}
-            Delete all favorites
-          </button>
-
-          <div className="modal fade" id="myModal" role="dialog">
-            <div className="modal-dialog">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <button type="button" className="close1" data-dismiss="modal">
-                    &times;
-                  </button>
-                  <h4 className="modal-title">Warnning</h4>
-                </div>
-                <div className="modal-body">
-                  <p>Are you sure you want to delete all your favorites?</p>
-                </div>
-                <div className="modal-footer">
-                  <button
-                    type="button"
-                    className="btn btn-info"
-                    data-dismiss="modal"
-                    onClick={removeAll}
-                  >
-                    Yes
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Modal removeAll={removeAll} />
       </div>
     );
   } else if (localStorage.getItem("weatherInfo") === null) {
@@ -181,7 +93,6 @@ const Favorite = () => {
             color: "white",
             fontWeight: "bold",
             fontSize: "30px",
-            // marginLeft: "30px",
             textAlign: "center"
           }}
         >

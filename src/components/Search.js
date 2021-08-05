@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { searchCity } from "../actions/searchAction";
+import { searchCity } from "../redux/actions/searchAction";
 import { Autocomplete } from "@material-ui/lab";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
-import { API_AUTOCOMPLETE } from "../actions/type";
+import { API_AUTOCOMPLETE } from "../redux/actions//type";
 
 class Search extends Component {
   state = {

@@ -1,8 +1,10 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 const Header = ({ children }) => {
+  const history = useHistory();
+  const { pathname } = history.location;
   return (
     <div className="container-header">
       <div className="container-nav">
@@ -15,9 +17,11 @@ const Header = ({ children }) => {
               <div className="box2">
                 <NavLink
                   exact
+                  activeClassName="active"
                   to="/"
-                  className="navbar-brand"
-                  activeClassName="main-nav-active"
+                  className={
+                    pathname === "/" ? "navbar-brand active" : "navbar-brand"
+                  }
                 >
                   Home
                 </NavLink>
@@ -25,9 +29,13 @@ const Header = ({ children }) => {
               <div className="box">
                 <NavLink
                   exact
+                  activeClassName="active"
                   to="/favorite"
-                  className="navbar-brand"
-                  activeClassName="main-nav-active"
+                  className={
+                    pathname === "/favorite"
+                      ? "navbar-brand active"
+                      : "navbar-brand"
+                  }
                 >
                   Favorites
                 </NavLink>
